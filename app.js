@@ -178,7 +178,7 @@ export function initialize() {
   addBeverageButton.addEventListener("click", handleAddBeverageClick);
 
   // Carica il file JSON
-  fetch('http://localhost:8080/bevande.json')
+  fetch(bevande.json)
     .then(response => response.json())
     .then(data => {
       sections = data.sections;
