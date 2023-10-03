@@ -1,6 +1,58 @@
 import { sortBeveragesInSection, getUnitText } from './utils.js';
 
 let sections = [];
+let predefinedContainers = [];
+
+function addPredefinedBeverages() {
+  predefinedContainers.forEach(container => {
+    const sectionId = container.dataset.section;
+    const section = sections.find(sec => sec.id === sectionId);
+
+    if (section) {
+      const beveragesContainer = container.querySelector('.beverages-container');
+      beveragesContainer.innerHTML = '';
+
+      section.beverages.forEach(beverage => {
+        const beverageDiv = document.createElement('div');
+        beverageDiv.classList.add('form-group');
+
+        const nameLabel = document.createElement('label');
+        nameLabel.textContent = 'Nome Bevanda';
+        nameLabel.setAttribute('for', 'beverage');
+
+        const nameInput = document.createElement('input');
+        nameInput.type = 'text';
+        nameInput.classList.add('beverage');
+        nameInput.value = beverage.name;
+        nameInput.readOnly = true;
+
+        const quantityLabel = document.createElement('label');
+        quantityLabel.textContent = 'Quantità';
+        quantityLabel.setAttribute('for', 'quantity');
+
+        const quantityInput = document.createElement('input');
+        quantityInput.type = 'number';
+        quantityInput.classList.add('quantity');
+        quantityInput.value = 0;
+
+        const unitLabel = document.createElement('label');
+        unitLabel.textContent = 'Unità';
+        unitLabel.setAttribute('for', 'unit');
+
+        const unitSelect = createUnitSelectElement();
+
+        beverageDiv.appendChild(nameLabel);
+        beverageDiv.appendChild(nameInput);
+        beverageDiv.appendChild(quantityLabel);
+        beverageDiv.appendChild(quantityInput);
+        beverageDiv.appendChild(unitLabel);
+        beverageDiv.appendChild(unitSelect);
+
+        beveragesContainer.appendChild(beverageDiv);
+      });
+    }
+  });
+}
 
 export function initialize() {
   return new Promise((resolve, reject) => {
@@ -9,7 +61,7 @@ export function initialize() {
     const currentMonth = currentDate.toLocaleString("default", { month: "long" });
     const currentDay = currentDate.getDate();
 
-    const predefinedContainers = document.querySelectorAll('.beverage-section .form-group');
+    predefinedContainers = document.querySelectorAll('.beverage-section .form-group');
 
     // ... Gestori degli eventi e altre funzioni di inizializzazione ...
 
@@ -28,5 +80,19 @@ export function initialize() {
   });
 }
 
-// Altre funzioni di utilità, se necessarie
+export function getUnitText(unit, quantity) {
+  // Restituisci il testo dell'unità corretto in base alla quantità
+  if (quantity === 1) {
+    return unit;
+  } else {
+    if (unit === "scatola") {
+      return "scatole";
+    } else if (unit === "bottiglia") {
+      return "bottiglie";
+    } else if (unit === "pacco") {
+      return "pacchi";
+    }
+  }
+}
 
+// Altre funzioni di utilità, se necessarie

@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const addBeverageButton = document.getElementById("add-beverage");
       const dynamicFields = document.getElementById("dynamic-fields");
       let dynamicFieldIndex = 1;
+      let currentDay, currentMonth;
 
       searchInput.addEventListener("input", handleSearchInput);
       calculateButton.addEventListener("click", handleCalculateClick);
@@ -170,11 +171,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
         return select;
       }
+
+      // Imposta la data corrente
+      currentDay = currentDate.getDate();
+      currentMonth = currentDate.toLocaleString("default", { month: "long" });
     })
     .catch(error => {
       console.error('Errore durante inizializzazione:', error);
     });
 });
-
-
-

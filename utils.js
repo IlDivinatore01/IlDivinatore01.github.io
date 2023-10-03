@@ -1,5 +1,3 @@
-// utils.js
-
 export function sortBeveragesInSection(section) {
   // Ordina le bevande nella sezione
   section.beverages.sort((a, b) => a.name.localeCompare(b.name));
@@ -21,4 +19,5 @@ export function getUnitText(unit, quantity) {
 }
 
 // Altre funzioni di utilità, se necessarie
+
 
